@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        AWS_REGION = 'us-east-1' 
-        ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/ecr_docker'
+        AWS_REGION = 'us-east-1c' 
+        ECR_REPO = '108782100023.dkr.ecr.us-east-1c.amazonaws.com/new_repo'
     }
 
     stages {
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ecr_docker ."
+                sh "docker build -t new_repo ."
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
         script {
             
             sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
-            sh "docker tag ecr_docker:latest ${ECR_REPO}:latest"
+            sh "docker tag new_repo:latest ${ECR_REPO}:latest"
             sh "docker push ${ECR_REPO}:latest"
         }
     }
