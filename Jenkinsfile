@@ -2,13 +2,13 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda'
+        ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda:latest'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sandhyachinnu26/java-war-repo.git'
+                git branch: 'main', url: 'https://github.com/bvrunda/java-war-repo.git'
             }
         }
 
@@ -32,11 +32,11 @@ pipeline {
                     """
 
                     sh """
-                    docker tag vrunda:latest 108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda:latest
+                    docker tag vrunda:latest ${ECR_REPO}:latest
                     """
 
                     sh """
-                    docker push 108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda:latest
+                    docker push ${ECR_REPO}:latest
                     """
                 }
             }
