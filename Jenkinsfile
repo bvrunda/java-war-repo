@@ -5,6 +5,8 @@ pipeline {
         ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda'
     }
 
+
+    
     stages {
         stage('Clone Repository') {
             steps {
