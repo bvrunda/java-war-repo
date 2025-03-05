@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1c' 
-        ECR_REPO = '108782100023.dkr.ecr.us-east-1c.amazonaws.com/new_repo'
+        ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda'
     }
 
     stages {
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t new_repo ."
+                sh "docker build -t vrunda ."
             }
         }
 
@@ -28,9 +28,9 @@ pipeline {
     steps {
         script {
             
-            sh "aws ecr get-login-password --region ${AWS_REGION} | sudo docker login --username AWS --password-stdin ${ECR_REPO}"
-            sh " sudo docker tag new_repo:latest ${ECR_REPO}:latest"
-            sh "sudo docker push ${ECR_REPO}:latest"
+            sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
+            sh "docker tag vrunda:latest ${ECR_REPO}:latest"
+            sh "docker push ${ECR_REPO}:latest"
         }
     }
 }
