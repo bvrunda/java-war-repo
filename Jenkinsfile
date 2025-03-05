@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { lable 'docker' }
     environment {
         AWS_REGION = 'us-east-1' 
         ECR_REPO = '108782100023.dkr.ecr.us-east-1.amazonaws.com/vrunda'
